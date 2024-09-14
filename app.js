@@ -6,21 +6,21 @@ const AppError = require('./utils/appError');
 const globalErrorHandler= require('./controllers/errorController');
 const tourRouter= require('./routes/tourRoutes');
 const userRouter= require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewRoutes');
 
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-
-
+ 
 
 
 
 
 // GLOBAL MIDDLEWARES
 // set security http
-app.use(helmet());
+app.use(helmet()); 
 
 app.use(morgan('dev'));
 
@@ -63,6 +63,7 @@ app.use((req,res,next)=>{
 //routes
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users',userRouter);
+app.use('/api/v1/reviews',reviewRouter);
 
 
 app.all('*',(req,res,next)=>{

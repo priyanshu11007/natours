@@ -2,6 +2,7 @@ const express = require('express');
 
 const userController= require('./../controllers/userController');
 const authController =require('./../controllers/authController');
+
 const router= express.Router();
 
 router.
@@ -15,25 +16,38 @@ router.
 
 router.
     patch('/resetPassword/:token',authController.resetPassword);   
+
+
+//protect all routes after this point
+router.use(authController.protect);    
     
 router.
-    patch('/updateMyPassword',authController.protect,authController.updatePassword); 
+    patch('/updateMyPassword',authController.updatePassword); 
     
 router.
-    patch('/updateMe',authController.protect,userController.updateMe);    
+    patch('/updateMe',userController.updateMe);    
 
 router.
-    delete('/deleteMe',authController.protect,userController.deleteMe);
+    delete('/deleteMe',userController.deleteMe);
+
+router.
+    get('/me',userController.getMe,userController.getUser);   
  
-router
-.route('/')
-.get(userController.getAllUsers)
-.post(userController.createUser);
+router.use(authController.restrictTo('admin'));
+
+ router
+    .route('/')
+    .get(userController.getAllUsers)
+ 
 
 router
 .route('/:id')
 .get(userController.getUser)
 .patch(userController.updateUser)
 .delete(userController.deleteUser);
+
+
+// NESTED ROUTES
+
 
 module.exports=router;
