@@ -13,19 +13,6 @@ const signToken = id=>{
     });
 }
 
-
-
-// const createSendToken = (user,statusCode,res)=>{
-//     const token = signToken(user._id);
-
-//     res.cookie('jwt',token,cookieOptions);
-
-//     res.status(statusCode).json({
-//         status :"success",
-//         token
-//     });
-// }
-
 exports.signup = catchAsync(async (req,res,next) => {
     const newUser = await User.create(req.body);
     const token = signToken(newUser._id);
