@@ -24,4 +24,4 @@ app.listen(port, ()=>{
     console.log(`app running on the port ${port}`);
 })
 
-console.log(process.env); 
+//console.log(process.env); 
