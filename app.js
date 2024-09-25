@@ -17,7 +17,7 @@ const { title } = require('process');
 const viewRouter = require('./routes/viewRoutes');
 const cookieParser= require('cookie-parser');
 const cors = require('cors');
-const compression = require('compression');
+// const compression = require('compression');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -78,7 +78,7 @@ app.use(
   })
 );
 
-app.use(compression());
+// app.use(compression());
 
 //test middleware
 app.use((req, res, next) => {
